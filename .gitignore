@@ -855,3 +855,6 @@ temp/
 Debug/
 Release/
 html-exam/
+
+# Ignore Gradle build output directory
+build

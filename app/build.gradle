@@ -1,0 +1,38 @@
+// Gradle 빌드 작업 플러그인 설정
+plugins {
+    id 'application'
+}
+
+// 의존 라이브러리를 다운로드할 서버 정보 설정
+repositories {
+    mavenCentral()
+}
+
+// 프로젝트에서 사용할 의존 라이브러리 설정
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter:5.12.1"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation "com.google.guava:guava:33.4.5-jre"
+}
+
+// Java 컴파일과 실행과정에서 사용할 설정
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+// Gradle로 자바 애플리케이션을 실행할 때 사용할 설정
+application {
+    mainClass = 'org.example.App' // 메인 클래스 지정
+}
+
+// 테스트 작업에 관련된 설정
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+// .jar 파일 이름 설정
+tasks.named('jar') {
+    archiveFileName.set("${rootProject.name}.jar") // .jar 파일 이름 설정
+}
