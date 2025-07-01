@@ -8,3 +8,7 @@
 ## 2단계: Gradle 도입 후
 
 - Gradle을 사용하여 프로젝트 디렉토리를 구성
+
+## 3단계: Standalone I
+
+- 회원관리 CRUD
