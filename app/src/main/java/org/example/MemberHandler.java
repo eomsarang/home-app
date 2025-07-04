@@ -1,7 +1,5 @@
 package org.example;
 
-import org.example.App.User;
-
 public class MemberHandler {
   static User[] users = new User[10000]; // 레퍼런스 배열
   static int len = 0;
@@ -107,5 +105,14 @@ public class MemberHandler {
       }
     }
     System.out.println("해당 회원이 존재하지 않습니다.");
+  }
+
+  // 클래스?
+  // - 관련된 기능(메소드 및 변수)을 그룹으로 묶는 역할
+  // - 새 데이터 타입을 정의하는 역할
+  static class User {
+    String name;
+    String email;
+    String password;
   }
 }

@@ -19,7 +19,7 @@
 
 ## v3.1: 클래스 활용
 
-- 회원관리 관련 메서드를 클래스로 분리
+
 - 이론:
     - SOLID
         - SRP(Single Responsibility Principle)
