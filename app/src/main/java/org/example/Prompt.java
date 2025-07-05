@@ -12,4 +12,8 @@ public class Prompt {
     System.out.printf(title + " ", args);
     return keyboard.nextLine().trim();
   }
+
+  static int inputInt(String title, Object... args) {
+    return Integer.parseInt(inputString(title, args));
+  }
 }

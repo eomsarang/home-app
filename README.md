@@ -49,3 +49,14 @@
 
 - 게시글 관리 기능 추가
     - BoardHandler 
+
+## v5.1: 리팩토링
+
+- 메서드 이름 변경
+    - MemberHandler
+        - handleMemberCreate() --> handleCreate()
+        - handleXxxYyyy() --<> handleYyyy()
+- int 값을 입력 받는 메서드 추가
+    - Prompt
+        - inputInt() 
+

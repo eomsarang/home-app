@@ -82,7 +82,7 @@ public class BoardHandler {
   static void handleCreate() {
     Post post = new Post(); // 사용자 정보를 담을 인스턴스 생성하고 인스턴스 주소를 배열에 저장
 
-    post.no = Integer.parseInt(Prompt.inputString("번호?"));
+    post.no = Prompt.inputInt("번호?");
     post.title = Prompt.inputString("제목?");
     post.content = Prompt.inputString("내용?");
     post.writer = Prompt.inputString("작성자?");
@@ -103,7 +103,7 @@ public class BoardHandler {
 
   static void handleRead() {
 
-    int no = Integer.parseInt(Prompt.inputString("번호?"));
+    int no = Prompt.inputInt("번호?");
     for (int i = 0; i < len; i++) {
       Post post = posts[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
@@ -118,7 +118,7 @@ public class BoardHandler {
   }
 
   static void handleUpdate() {
-    int no = Integer.parseInt(Prompt.inputString("번호?"));
+    int no = Prompt.inputInt("번호?");
     for (int i = 0; i < len; i++) {
       Post post = posts[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
@@ -140,7 +140,7 @@ public class BoardHandler {
   }
 
   static void handleDelete() {
-    int no = Integer.parseInt(Prompt.inputString("번호?"));
+    int no = Prompt.inputInt("번호?");
     for (int i = 0; i < len; i++) {
       Post post = posts[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
