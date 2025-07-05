@@ -28,12 +28,60 @@ public class MemberHandler {
     len++;
   }
 
+  static void execute() {
+    printMenu();
+
+    loop:
+    while (true) {
+      String input = Prompt.inputString("메인/회원관리>");
+
+      switch (input) {
+        case "1":
+          MemberHandler.handleMemberCreate();
+          break;
+        case "2":
+          MemberHandler.handleMemberList();
+          break;
+        case "3":
+          MemberHandler.handleMemberRead();
+          break;
+        case "4":
+          MemberHandler.handleMemberUpdate();
+          break;
+        case "5":
+          MemberHandler.handleMemberDelete();
+          break;
+        case "0":
+          break loop;
+        case "menu":
+          printMenu();
+          break;
+        default:
+          handleError();
+      }
+    }
+  }
+
+  static void printMenu() {
+    System.out.println("회원관리: ");
+    System.out.println("  1. 입력");
+    System.out.println("  2. 목록");
+    System.out.println("  3. 조회");
+    System.out.println("  4. 변경");
+    System.out.println("  5. 삭제");
+    System.out.println("  0. 이전");
+  }
+
+  static void handleError() {
+    System.out.println("메뉴 번호가 유효하지 않습니다.");
+  }
+
   static void handleMemberCreate() {
     users[len] = new User(); // 사용자 정보를 담을 인스턴스 생성하고 인스턴스 주소를 배열에 저장
 
-    users[len].name = App.prompt("이름?");
-    users[len].email = App.prompt("이메일?");
-    users[len].password = App.prompt("암호?");
+    users[len].name = Prompt.inputString("이름?");
+    users[len].email = Prompt.inputString("이메일?");
+    users[len].password = Prompt.inputString("암호?");
 
     len++;
 
@@ -52,7 +100,7 @@ public class MemberHandler {
 
   static void handleMemberRead() {
 
-    String email = App.prompt("이메일?");
+    String email = Prompt.inputString("이메일?");
     for (int i = 0; i < len; i++) {
       User user = users[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
@@ -67,14 +115,14 @@ public class MemberHandler {
   }
 
   static void handleMemberUpdate() {
-    String email = App.prompt("이메일?");
+    String email = Prompt.inputString("이메일?");
     for (int i = 0; i < len; i++) {
       User user = users[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
       if (user.email.equals(email)) {
-        String name = App.prompt("이름(%s):", user.name);
-        String password = App.prompt("암호(%s):", user.password);
-        String response = App.prompt("정말 변경하시겠습니까? (Y/n)");
+        String name = Prompt.inputString("이름(%s):", user.name);
+        String password = Prompt.inputString("암호(%s):", user.password);
+        String response = Prompt.inputString("정말 변경하시겠습니까? (Y/n)");
         if (response.equalsIgnoreCase("Y") || response.equals("")) {
           user.name = name;
           user.password = password;
@@ -89,12 +137,12 @@ public class MemberHandler {
   }
 
   static void handleMemberDelete() {
-    String email = App.prompt("이메일?");
+    String email = Prompt.inputString("이메일?");
     for (int i = 0; i < len; i++) {
       User user = users[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
       if (user.email.equals(email)) {
-        String response = App.prompt("정말 삭제하시겠습니까? (Y/n)");
+        String response = Prompt.inputString("정말 삭제하시겠습니까? (Y/n)");
         if (response.equalsIgnoreCase("Y") || response.equals("")) {
           user.email = "";
           System.out.println("삭제했습니다.");

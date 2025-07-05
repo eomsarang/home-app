@@ -19,9 +19,28 @@
 
 ## v3.1: 클래스 활용
 
-
+- 회원관리 관련 메서드 및 변수를 별도 클래스로 분리
+    - MemberHandler
 - 이론:
     - SOLID
         - SRP(Single Responsibility Principle)
     - GRASP(General Responsibility Assignment Software Patterns)
         - High Cohesion
+
+## v3.2: 클래스 이동
+
+- User 클래스를 App에서 MemberHandler로 소속을 옮긴다.
+
+## v4.0: 메인 메뉴 도입
+
+- 메인 메뉴 기능 추가
+    - App
+- 회원 관리 메뉴 기능 이동
+    - MemberHandler
+- 프롬프트 기능을 공통 사용 클래스로 분리
+    - Prompt
+    - App 클래스와 묶이면 다른 프로젝트에서 재사용하기 힘들다.
+    - 그래서 프롬프트 기능을 유틸리티 역할을 수행하는 공통 클래스로 이동한다.
+        - Low Coupling
+- 이론:
+    - GRASP의 Low Coupling
