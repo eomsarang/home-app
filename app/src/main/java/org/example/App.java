@@ -5,8 +5,20 @@ public class App {
   public static void main(String[] args) {
 
     MemberHandler.init();
-    BoardHandler.init();
-    TechBoardHandler.init();
+
+    // 게시글을 담을 배열과 len 변수를 준비한다.
+    BoardHandler board = new BoardHandler();
+    board.boardName = "게시판";
+
+    // 기술소개 게시글을 담을 배열과 len 변수를 준비한다.
+    BoardHandler techBoard = new BoardHandler();
+    techBoard.boardName = "기술소개";
+
+    // 게시글 배열을 초기화
+    BoardHandler.init(board);
+
+    // 기술 소개 게시글 배열을 초기화
+    BoardHandler.init(techBoard);
 
     printMainMenu();
 
@@ -19,10 +31,10 @@ public class App {
           MemberHandler.execute();
           break;
         case "2":
-          BoardHandler.run();
+          BoardHandler.run(board);
           break;
         case "3":
-          TechBoardHandler.service();
+          BoardHandler.run(techBoard);
           break;
         case "0":
           break loop;

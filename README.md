@@ -67,3 +67,9 @@
 - 각 메뉴를 실행할 때 제목 출력
     - BoardHandler 변경
 
+## v6.1: 인스턴스 변수 도입
+
+- BoardHandler 클래스
+    - 변수를 인스턴스 변수로 변경
+    - TechBoardHandler 삭제
+        - 코드 중복을 없앤다.

@@ -1,63 +1,65 @@
 package org.example;
 
 public class BoardHandler {
-  static Post[] posts = new Post[10000]; // 레퍼런스 배열
-  static int len = 0;
+  // 인스턴스(instance) 변수(variables; field)
+  Post[] posts = new Post[10000]; // 레퍼런스 배열
+  int len = 0;
+  String boardName;
 
-  static void init() {
+  static void init(BoardHandler handler) {
     // 예제 데이터를 미리 만들어 배열에 저장한다.
     Post post = new Post();
     post.no = 1;
     post.title = "제목입니다1";
     post.content = "내용입니다1";
     post.writer = "홍길동";
-    posts[len] = post;
-    len++;
+    handler.posts[handler.len] = post;
+    handler.len++;
 
     post = new Post();
     post.no = 2;
     post.title = "제목입니다2";
     post.content = "내용입니다2";
     post.writer = "임꺽정";
-    posts[len] = post;
-    len++;
+    handler.posts[handler.len] = post;
+    handler.len++;
 
     post = new Post();
     post.no = 3;
     post.title = "제목입니다3";
     post.content = "내용입니다3";
     post.writer = "유관순";
-    posts[len] = post;
-    len++;
+    handler.posts[handler.len] = post;
+    handler.len++;
   }
 
-  static void run() {
-    printMenu();
+  static void run(BoardHandler handler) {
+    printMenu(handler);
 
     loop:
     while (true) {
-      String input = Prompt.inputString("메인/게시글>");
+      String input = Prompt.inputString("메인/%s>", handler.boardName);
 
       switch (input) {
         case "1":
-          handleCreate();
+          handleCreate(handler);
           break;
         case "2":
-          handleList();
+          handleList(handler);
           break;
         case "3":
-          handleRead();
+          handleRead(handler);
           break;
         case "4":
-          handleUpdate();
+          handleUpdate(handler);
           break;
         case "5":
-          handleDelete();
+          handleDelete(handler);
           break;
         case "0":
           break loop;
         case "menu":
-          printMenu();
+          printMenu(handler);
           break;
         default:
           handleError();
@@ -65,8 +67,8 @@ public class BoardHandler {
     }
   }
 
-  static void printMenu() {
-    System.out.println("게시글관리: ");
+  static void printMenu(BoardHandler handler) {
+    System.out.printf("%s 관리:\n", handler.boardName);
     System.out.println("  1. 입력");
     System.out.println("  2. 목록");
     System.out.println("  3. 조회");
@@ -79,7 +81,7 @@ public class BoardHandler {
     System.out.println("메뉴 번호가 유효하지 않습니다.");
   }
 
-  static void handleCreate() {
+  static void handleCreate(BoardHandler handler) {
     System.out.println("[입력]");
 
     Post post = new Post(); // 사용자 정보를 담을 인스턴스 생성하고 인스턴스 주소를 배열에 저장
@@ -89,28 +91,29 @@ public class BoardHandler {
     post.content = Prompt.inputString("내용?");
     post.writer = Prompt.inputString("작성자?");
 
-    posts[len++] = post;
+    handler.posts[handler.len++] = post;
 
     System.out.println("입력되었습니다.");
   }
 
-  static void handleList() {
+  static void handleList(BoardHandler handler) {
     System.out.println("[목록]");
 
-    for (int i = 0; i < len; i++) {
-      if (posts[i].no == 0) {
+    for (int i = 0; i < handler.len; i++) {
+      if (handler.posts[i].no == 0) {
         continue;
       }
-      System.out.printf("%d, %s, %s\n", posts[i].no, posts[i].title, posts[i].writer);
+      System.out.printf(
+          "%d, %s, %s\n", handler.posts[i].no, handler.posts[i].title, handler.posts[i].writer);
     }
   }
 
-  static void handleRead() {
+  static void handleRead(BoardHandler handler) {
     System.out.println("[조회]");
 
     int no = Prompt.inputInt("번호?");
-    for (int i = 0; i < len; i++) {
-      Post post = posts[i];
+    for (int i = 0; i < handler.len; i++) {
+      Post post = handler.posts[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
       if (post.no == no) {
         System.out.printf("제목: %s\n", post.title);
@@ -122,12 +125,12 @@ public class BoardHandler {
     System.out.println("해당 게시글이 존재하지 않습니다.");
   }
 
-  static void handleUpdate() {
+  static void handleUpdate(BoardHandler handler) {
     System.out.println("[변경]");
 
     int no = Prompt.inputInt("번호?");
-    for (int i = 0; i < len; i++) {
-      Post post = posts[i];
+    for (int i = 0; i < handler.len; i++) {
+      Post post = handler.posts[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
       if (post.no == no) {
         String title = Prompt.inputString("제목(%s):", post.title);
@@ -146,12 +149,12 @@ public class BoardHandler {
     System.out.println("해당 게시글이 존재하지 않습니다.");
   }
 
-  static void handleDelete() {
+  static void handleDelete(BoardHandler handler) {
     System.out.println("[삭제]");
 
     int no = Prompt.inputInt("번호?");
-    for (int i = 0; i < len; i++) {
-      Post post = posts[i];
+    for (int i = 0; i < handler.len; i++) {
+      Post post = handler.posts[i];
       // user레퍼런스가 가리키는 객체의 email 변수 값이 사용자가 입력한 email 변수 값과 같은지 비교해야 한다.
       if (post.no == no) {
         String response = Prompt.inputString("정말 삭제하시겠습니까? (Y/n)");
