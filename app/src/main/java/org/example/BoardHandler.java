@@ -6,6 +6,10 @@ public class BoardHandler {
   int len = 0;
   String boardName;
 
+  BoardHandler(String title) {
+    this.boardName = title;
+  }
+
   static void init(BoardHandler handler) {
     // 예제 데이터를 미리 만들어 배열에 저장한다.
     Post post = new Post();

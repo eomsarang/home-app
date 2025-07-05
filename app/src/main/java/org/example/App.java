@@ -7,12 +7,10 @@ public class App {
     MemberHandler.init();
 
     // 게시글을 담을 배열과 len 변수를 준비한다.
-    BoardHandler board = new BoardHandler();
-    board.boardName = "게시판";
+    BoardHandler board = new BoardHandler("게시판");
 
     // 기술소개 게시글을 담을 배열과 len 변수를 준비한다.
-    BoardHandler techBoard = new BoardHandler();
-    techBoard.boardName = "기술소개";
+    BoardHandler techBoard = new BoardHandler("기술소개");
 
     // 게시글 배열을 초기화
     BoardHandler.init(board);
