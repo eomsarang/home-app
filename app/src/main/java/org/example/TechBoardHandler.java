@@ -1,6 +1,6 @@
 package org.example;
 
-public class BoardHandler {
+public class TechBoardHandler {
   static Post[] posts = new Post[10000]; // 레퍼런스 배열
   static int len = 0;
 
@@ -31,12 +31,12 @@ public class BoardHandler {
     len++;
   }
 
-  static void run() {
+  static void service() {
     printMenu();
 
     loop:
     while (true) {
-      String input = Prompt.inputString("메인/게시글>");
+      String input = Prompt.inputString("메인/기술소개>");
 
       switch (input) {
         case "1":
@@ -66,7 +66,7 @@ public class BoardHandler {
   }
 
   static void printMenu() {
-    System.out.println("게시글관리: ");
+    System.out.println("기술소개관리: ");
     System.out.println("  1. 입력");
     System.out.println("  2. 목록");
     System.out.println("  3. 조회");
@@ -119,7 +119,7 @@ public class BoardHandler {
         return;
       }
     }
-    System.out.println("해당 게시글이 존재하지 않습니다.");
+    System.out.println("해당 기술소개 게시글이 존재하지 않습니다.");
   }
 
   static void handleUpdate() {
@@ -143,7 +143,7 @@ public class BoardHandler {
         return;
       }
     }
-    System.out.println("해당 게시글이 존재하지 않습니다.");
+    System.out.println("해당 기술소개 게시글이 존재하지 않습니다.");
   }
 
   static void handleDelete() {
@@ -164,7 +164,7 @@ public class BoardHandler {
         return;
       }
     }
-    System.out.println("해당 게시글이 존재하지 않습니다.");
+    System.out.println("해당 기술소개 게시글이 존재하지 않습니다.");
   }
 
   static class Post {

@@ -60,3 +60,10 @@
     - Prompt
         - inputInt() 
 
+## v6.0: 기술소개 CRUD 구현
+
+- BoardHandler 클래스 복제
+    - TechBoardHandler 
+- 각 메뉴를 실행할 때 제목 출력
+    - BoardHandler 변경
+
