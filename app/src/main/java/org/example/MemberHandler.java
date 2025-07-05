@@ -33,7 +33,7 @@ public class MemberHandler {
 
     loop:
     while (true) {
-      String input = Prompt.inputString("메인/회원관리>");
+      String input = Prompt.inputString("메인/회원>");
 
       switch (input) {
         case "1":

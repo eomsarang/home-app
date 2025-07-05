@@ -44,3 +44,8 @@
         - Low Coupling
 - 이론:
     - GRASP의 Low Coupling
+
+## v5.0: 게시글 CRUD 구현
+
+- 게시글 관리 기능 추가
+    - BoardHandler 
