@@ -4,7 +4,7 @@ public class App {
 
   public static void main(String[] args) {
 
-    MemberHandler.init();
+    MemberHandler memberHandler = new MemberHandler();
 
     // 게시글을 담을 배열과 len 변수를 준비한다.
     BoardHandler board = new BoardHandler("게시판");
@@ -20,7 +20,7 @@ public class App {
 
       switch (input) {
         case "1":
-          MemberHandler.execute();
+          memberHandler.execute();
           break;
         case "2":
           board.run();
@@ -41,7 +41,7 @@ public class App {
     Prompt.keyboard.close();
   }
 
-  static void printMainMenu() {
+  private static void printMainMenu() {
     System.out.println("[HomeApp] 애플리케이션");
     System.out.println("  1. 회원 관리");
     System.out.println("  2. 게시글 관리");
@@ -49,7 +49,7 @@ public class App {
     System.out.println("  0. 종료");
   }
 
-  static void handleError() {
+  private static void handleError() {
     System.out.println("메뉴 번호가 유효하지 않습니다.");
   }
 }

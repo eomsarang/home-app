@@ -1,10 +1,16 @@
 package org.example;
 
 public class MemberHandler {
-  static User[] users = new User[10000]; // 레퍼런스 배열
-  static int len = 0;
+  User[] users = new User[10000]; // 레퍼런스 배열
+  int len = 0;
+  String title;
 
-  static void init() {
+  MemberHandler(String title) {
+    this.title = title;
+    this.init();
+  }
+
+  private void init() {
     // 예제 데이터를 미리 만들어 배열에 저장한다.
     User user = new User();
     user.name = "user1";
@@ -28,7 +34,7 @@ public class MemberHandler {
     len++;
   }
 
-  static void execute() {
+  void execute() {
     printMenu();
 
     loop:
@@ -62,8 +68,8 @@ public class MemberHandler {
     }
   }
 
-  static void printMenu() {
-    System.out.println("회원관리: ");
+  private void printMenu() {
+    System.out.printf("%s 관리:\n", this.title);
     System.out.println("  1. 입력");
     System.out.println("  2. 목록");
     System.out.println("  3. 조회");
@@ -72,11 +78,11 @@ public class MemberHandler {
     System.out.println("  0. 이전");
   }
 
-  static void handleError() {
+  private static void handleError() {
     System.out.println("메뉴 번호가 유효하지 않습니다.");
   }
 
-  static void handleCreate() {
+  private void handleCreate() {
     User user = new User(); // 사용자 정보를 담을 인스턴스 생성하고 인스턴스 주소를 배열에 저장
 
     user.name = Prompt.inputString("이름?");
@@ -88,7 +94,7 @@ public class MemberHandler {
     System.out.println("입력되었습니다.");
   }
 
-  static void handleList() {
+  private void handleList() {
     for (int i = 0; i < len; i++) {
       if (users[i].email.equals("")) {
         continue;
@@ -98,7 +104,7 @@ public class MemberHandler {
     }
   }
 
-  static void handleRead() {
+  private void handleRead() {
 
     String email = Prompt.inputString("이메일?");
     for (int i = 0; i < len; i++) {
@@ -114,7 +120,7 @@ public class MemberHandler {
     System.out.println("해당 회원이 존재하지 않습니다.");
   }
 
-  static void handleUpdate() {
+  private void handleUpdate() {
     String email = Prompt.inputString("이메일?");
     for (int i = 0; i < len; i++) {
       User user = users[i];
@@ -136,7 +142,7 @@ public class MemberHandler {
     System.out.println("해당 회원이 존재하지 않습니다.");
   }
 
-  static void handleDelete() {
+  private void handleDelete() {
     String email = Prompt.inputString("이메일?");
     for (int i = 0; i < len; i++) {
       User user = users[i];

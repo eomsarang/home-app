@@ -17,7 +17,7 @@ public class BoardHandler {
     init(); // init() 메서드를 호출할 때 넘겨준 this 변수의 값은 init() 메서드의 내장 변수인 this 변수로 복사된다.
   }
 
-  void init() {
+  private void init() {
     // 예제 데이터를 미리 만들어 배열에 저장한다.
     Post post = new Post();
     post.no = 1;
@@ -78,7 +78,7 @@ public class BoardHandler {
     }
   }
 
-  void printMenu() {
+  private void printMenu() {
     System.out.printf("%s 관리:\n", this.boardName);
     System.out.println("  1. 입력");
     System.out.println("  2. 목록");
@@ -88,11 +88,11 @@ public class BoardHandler {
     System.out.println("  0. 이전");
   }
 
-  static void handleError() {
+  private static void handleError() {
     System.out.println("메뉴 번호가 유효하지 않습니다.");
   }
 
-  void handleCreate() {
+  private void handleCreate() {
     System.out.println("[입력]");
 
     Post post = new Post(); // 사용자 정보를 담을 인스턴스 생성하고 인스턴스 주소를 배열에 저장
@@ -107,7 +107,7 @@ public class BoardHandler {
     System.out.println("입력되었습니다.");
   }
 
-  void handleList() {
+  private void handleList() {
     System.out.println("[목록]");
 
     for (int i = 0; i < this.len; i++) {
@@ -119,7 +119,7 @@ public class BoardHandler {
     }
   }
 
-  void handleRead() {
+  private void handleRead() {
     System.out.println("[조회]");
 
     int no = Prompt.inputInt("번호?");
@@ -136,7 +136,7 @@ public class BoardHandler {
     System.out.println("해당 게시글이 존재하지 않습니다.");
   }
 
-  void handleUpdate() {
+  private void handleUpdate() {
     System.out.println("[변경]");
 
     int no = Prompt.inputInt("번호?");
@@ -160,7 +160,7 @@ public class BoardHandler {
     System.out.println("해당 게시글이 존재하지 않습니다.");
   }
 
-  void handleDelete() {
+  private void handleDelete() {
     System.out.println("[삭제]");
 
     int no = Prompt.inputInt("번호?");
