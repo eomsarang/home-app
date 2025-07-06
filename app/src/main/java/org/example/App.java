@@ -12,12 +12,6 @@ public class App {
     // 기술소개 게시글을 담을 배열과 len 변수를 준비한다.
     BoardHandler techBoard = new BoardHandler("기술소개");
 
-    // 게시글 배열을 초기화
-    BoardHandler.init(board);
-
-    // 기술 소개 게시글 배열을 초기화
-    BoardHandler.init(techBoard);
-
     printMainMenu();
 
     loop:
@@ -29,10 +23,10 @@ public class App {
           MemberHandler.execute();
           break;
         case "2":
-          BoardHandler.run(board);
+          board.run();
           break;
         case "3":
-          BoardHandler.run(techBoard);
+          techBoard.run();
           break;
         case "0":
           break loop;
