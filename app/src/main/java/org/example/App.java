@@ -1,16 +1,25 @@
 package org.example;
 
+import org.example.handler.BoardHandler;
+import org.example.handler.Handler;
+import org.example.handler.MemberHandler;
+import org.example.util.Prompt;
+
 public class App {
 
+  private Handler memberHandler = new MemberHandler("회원");
+
+  // 게시글을 담을 배열과 len 변수를 준비한다.
+  private Handler boardHandler = new BoardHandler("게시판");
+
+  // 기술소개 게시글을 담을 배열과 len 변수를 준비한다.
+  private Handler techBoardHandler = new BoardHandler("기술소개");
+
   public static void main(String[] args) {
+    new App().service();
+  }
 
-    MemberHandler memberHandler = new MemberHandler();
-
-    // 게시글을 담을 배열과 len 변수를 준비한다.
-    BoardHandler board = new BoardHandler("게시판");
-
-    // 기술소개 게시글을 담을 배열과 len 변수를 준비한다.
-    BoardHandler techBoard = new BoardHandler("기술소개");
+  private void service() {
 
     printMainMenu();
 
@@ -20,13 +29,13 @@ public class App {
 
       switch (input) {
         case "1":
-          memberHandler.execute();
+          memberHandler.service();
           break;
         case "2":
-          board.run();
+          boardHandler.service();
           break;
         case "3":
-          techBoard.run();
+          techBoardHandler.service();
           break;
         case "0":
           break loop;
@@ -38,7 +47,7 @@ public class App {
       }
     }
 
-    Prompt.keyboard.close();
+    Prompt.close();
   }
 
   private static void printMainMenu() {

@@ -1,11 +1,14 @@
-package org.example;
+package org.example.handler;
 
-public class MemberHandler {
-  User[] users = new User[10000]; // 레퍼런스 배열
-  int len = 0;
-  String title;
+import org.example.util.Prompt;
 
-  MemberHandler(String title) {
+public class MemberHandler implements Handler {
+
+  private User[] users = new User[10000]; // 레퍼런스 배열
+  private int len = 0;
+  private String title;
+
+  public MemberHandler(String title) {
     this.title = title;
     this.init();
   }
@@ -34,7 +37,7 @@ public class MemberHandler {
     len++;
   }
 
-  void execute() {
+  public void service() {
     printMenu();
 
     loop:

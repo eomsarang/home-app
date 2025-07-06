@@ -93,3 +93,26 @@
 - 외부에 공개하지 않을 멤버는 접근하지 못하도록 표시
     - private
 
+## v6.5: 패키지 도입
+
+- 클래스의 역할에 따라 여러 패키지로 분리
+    - org.example.handler: 사용자 명령을 처리하는 핸들러 클래스를 두는 패키지
+    - org.example.util: 공통 기능을 수행하는 클래스를 두는 패키지
+- 외부 패키지의 클래스에 공개할 메서드를 표시
+    - public
+    - 참고: 접근 제어를 표시하지 않으면(package member 라 부른다) 같은 패키지의 클래스만 접근 가능
+
+## v7.0: Interface 활용
+
+- 핸들러의 호출 규칙을 정의
+    - 향후 핸들러를 일관성 있게 사용할 수 있다.
+    - 문법: Interface 
+    - 즉 인터페이스 문법은 객체 사용 규칙을 정의하는 문법
+    - Handler 인터페이스 정의 
+- Handler 인터페이스 구현
+    - MemberHandler 클래스
+    - BoardHandler 클래스
+- 이론
+    - GRASP
+        - Low Coupling
+        - Polymorphism

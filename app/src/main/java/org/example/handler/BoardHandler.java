@@ -1,17 +1,19 @@
-package org.example;
+package org.example.handler;
 
-public class BoardHandler {
+import org.example.util.Prompt;
+
+public class BoardHandler implements Handler {
   // 인스턴스(instance) 변수(variables; field)
-  Post[] posts = new Post[10000]; // 레퍼런스 배열
-  int len = 0;
-  String boardName;
+  private Post[] posts = new Post[10000]; // 레퍼런스 배열
+  private int len = 0;
+  private String boardName;
 
   // 생성자
   // - 인스턴스를 사용하는데 문제가 없도록 유효한 값으로 초기화시키는 기능
   // - new 명령을 실행할 때 지정한 생성자가 호출된다.
   //   예1) new BoardHandler() --> 파라미터가 없는 생성자가 호출된다.
   //   예1) new BoardHandler("텍스트") --> 문자열을 받는 생성자가 호출된다.
-  BoardHandler(String boardName) {
+  public BoardHandler(String boardName) {
     // this는 내장 변수다. new 명령으로 생성한 인스턴스의 주소가 들어 있다.
     this.boardName = boardName;
     init(); // init() 메서드를 호출할 때 넘겨준 this 변수의 값은 init() 메서드의 내장 변수인 this 변수로 복사된다.
@@ -44,7 +46,7 @@ public class BoardHandler {
     this.len++;
   }
 
-  void run() {
+  public void service() {
     this.printMenu();
 
     loop:
