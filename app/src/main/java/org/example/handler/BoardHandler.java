@@ -1,5 +1,12 @@
 package org.example.handler;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.CharBuffer;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import org.example.util.Prompt;
 
 public class BoardHandler implements Handler {
@@ -7,43 +14,92 @@ public class BoardHandler implements Handler {
   private Post[] posts = new Post[10000]; // 레퍼런스 배열
   private int len = 0;
   private String boardName;
+  private String filename;
 
-  // 생성자
-  // - 인스턴스를 사용하는데 문제가 없도록 유효한 값으로 초기화시키는 기능
-  // - new 명령을 실행할 때 지정한 생성자가 호출된다.
-  //   예1) new BoardHandler() --> 파라미터가 없는 생성자가 호출된다.
-  //   예1) new BoardHandler("텍스트") --> 문자열을 받는 생성자가 호출된다.
-  public BoardHandler(String boardName) {
-    // this는 내장 변수다. new 명령으로 생성한 인스턴스의 주소가 들어 있다.
+  public BoardHandler(String boardName, String filename) {
+
     this.boardName = boardName;
-    init(); // init() 메서드를 호출할 때 넘겨준 this 변수의 값은 init() 메서드의 내장 변수인 this 변수로 복사된다.
+    this.filename = filename;
+    init();
   }
 
   private void init() {
-    // 예제 데이터를 미리 만들어 배열에 저장한다.
-    Post post = new Post();
-    post.no = 1;
-    post.title = "제목입니다1";
-    post.content = "내용입니다1";
-    post.writer = "홍길동";
-    this.posts[this.len] = post;
-    this.len++;
+    try {
+      // 파일 이름에 해당하는 파일을 찾아서 읽기 작업을 수행할 때 사용할 데이터를 준비한다.
+      FileReader in = new FileReader(this.filename);
 
-    post = new Post();
-    post.no = 2;
-    post.title = "제목입니다2";
-    post.content = "내용입니다2";
-    post.writer = "임꺽정";
-    this.posts[this.len] = post;
-    this.len++;
+      // 파일에서 읽은 문자열을 저장할 바구니 객체
+      StringBuilder strBuilder = new StringBuilder();
 
-    post = new Post();
-    post.no = 3;
-    post.title = "제목입니다3";
-    post.content = "내용입니다3";
-    post.writer = "유관순";
-    this.posts[this.len] = post;
-    this.len++;
+      // 파일 읽기
+      CharBuffer buffer = CharBuffer.allocate(1024); // GoF의 Factory Method 패턴
+      int charsRead = 0;
+
+      while (true) {
+        charsRead = in.read(buffer); // charBuffer 객체로 최대 10개의 문자를 읽는다.
+        if (charsRead == -1) {
+          break;
+        }
+
+        // CharBuffer에 임시로 저장해둔 문자열을 꺼내서 StringBuilder 바구니에 담는다.
+        buffer.flip(); // 처음부터 데이터 읽기 위해 버퍼의 읽기위치를 0으로 되돌린다.
+        strBuilder.append(buffer.toString());
+
+        buffer.clear(); // 파일에서 다음 문자열을 읽기 위해 버퍼를 비운다.
+      }
+      //  읽은 문자열을 한 줄 단위로 자른다.
+      Scanner scanner = new Scanner(strBuilder.toString());
+      while (true) {
+        try {
+          String line = scanner.nextLine();
+          String[] arr = line.split(",");
+
+          Post post = new Post();
+          post.no = Integer.parseInt(arr[0]);
+          post.title = arr[1];
+          post.content = arr[2];
+          post.writer = arr[3];
+
+          posts[len++] = post;
+
+        } catch (NoSuchElementException ex) {
+          break;
+        }
+      }
+
+      // 파일 읽기가 끝난 후 자원을 해제시킨다. 그래야 다른 프로그램이 파일 자원을 사용할 수 있다.
+      in.close();
+      // 파일을 닫다가 실패 했을 때 할 일을 기술한다.
+    } catch (FileNotFoundException ex) {
+      // 파일을 찾지 못했을 때 해야할 일을 기술한다.
+      System.out.printf("%s 파일이 없습니다.\n", this.filename);
+    } catch (IOException ex) {
+      System.out.printf("%s 파일을 닫을 수 없습니다.\n", this.filename);
+    }
+  }
+
+  public void save() {
+    try {
+      // 해당 파일에 데이터를 출력할 때 필요한 정보를 준비한다.
+      FileWriter out = new FileWriter(this.filename);
+
+      // 배열에 들어있는 데이터를 파일로 출력한다.
+      for (int i = 0; i < this.len; i++) {
+        if (this.posts[i].no == 0) {
+          continue;
+        }
+
+        String boardCsv =
+            String.format(
+                "%d,%s,%s,%s", posts[i].no, posts[i].title, posts[i].content, posts[i].writer);
+        out.append(boardCsv + "\n");
+      }
+
+      // 데이터 출력 작업이 끝난 후 자원을 해제시킨다.
+      out.close();
+    } catch (IOException ex) {
+      System.out.printf("%s 파일로 저장하는 중에 오류가 발생했습니다.\n", this.filename);
+    }
   }
 
   public void service() {

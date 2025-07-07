@@ -1,5 +1,12 @@
 package org.example.handler;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.CharBuffer;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
 import org.example.util.Prompt;
 
 public class MemberHandler implements Handler {
@@ -7,34 +14,91 @@ public class MemberHandler implements Handler {
   private User[] users = new User[10000]; // 레퍼런스 배열
   private int len = 0;
   private String title;
+  private String filename;
 
-  public MemberHandler(String title) {
+  public MemberHandler(String title, String filename) {
     this.title = title;
+    this.filename = filename;
     this.init();
   }
 
   private void init() {
-    // 예제 데이터를 미리 만들어 배열에 저장한다.
-    User user = new User();
-    user.name = "user1";
-    user.email = "user1@test.com";
-    user.password = "1111";
-    users[len] = user;
-    len++;
+    try {
+      // 파일 이름에 해당하는 파일을 찾아서 읽기 작업을 수행할 때 사용할 데이터를 준비한다.
+      FileReader in = new FileReader(this.filename);
 
-    user = new User();
-    user.name = "user2";
-    user.email = "user2@test.com";
-    user.password = "2222";
-    users[len] = user;
-    len++;
+      // 파일에서 읽은 문자열을 저장할 바구니 객체
+      StringBuilder strBuilder = new StringBuilder();
 
-    user = new User();
-    user.name = "user3";
-    user.email = "user3@test.com";
-    user.password = "3333";
-    users[len] = user;
-    len++;
+      // 파일 읽기
+      CharBuffer buffer = CharBuffer.allocate(1024); // GoF의 Factory Method 패턴
+      int charsRead = 0;
+
+      while (true) {
+        charsRead = in.read(buffer); // CharBuffer 객체로 최대 10개의 문자를 읽는다.
+        if (charsRead == -1) {
+          break;
+        }
+
+        // CharBuffer 에 임시로 저장해둔 문자열을 꺼내서 StringBuilder 바구니에 담는다.
+        buffer.flip(); // 처음부터 데이터 읽기 위해 버퍼의 읽기 위치를 0으로 되돌린다.
+        strBuilder.append(buffer.toString());
+
+        buffer.clear(); // 파일에서 다음 문자열을 읽기 위해 버퍼를 비운다.
+      }
+
+      // 읽은 문자열을 한 줄 단위로 자른다.
+      Scanner scanner = new Scanner(strBuilder.toString());
+      while (true) {
+        try {
+          String line = scanner.nextLine(); // "aaa,aaa@test.com,1111"
+          String[] arr = line.split(","); // ["aaa", "aaa@test.com", "1111"]
+
+          User user = new User();
+          user.name = arr[0];
+          user.email = arr[1];
+          user.password = arr[2];
+
+          users[len++] = user;
+
+        } catch (NoSuchElementException ex) {
+          break;
+        }
+      }
+
+      // 파일 읽기가 끝난 후 자원을 해제시킨다. 그래야 다른 프로그램이 파일 자원을 사용할 수 있다.
+      in.close();
+
+    } catch (FileNotFoundException ex) {
+      // 파일을 찾지 못했을 때 해야 할 일을 기술한다.
+      System.out.printf("%s 파일이 없습니다!\n", this.filename);
+    } catch (IOException ex) {
+      // 파일을 닫다가 실패 했을 때 할 일을 기술한다.
+      System.out.printf("%s 파일을 닫을 수 없습니다!\n", this.filename);
+    }
+  }
+
+  public void save() {
+    try {
+      // 해당 파일에 데이터를 출력할 때 필요한 정보를 준비한다.
+      FileWriter out = new FileWriter(this.filename);
+
+      // 배열에 들어 있는 데이터를 파일로 출력한다.
+      for (int i = 0; i < this.len; i++) {
+        if (this.users[i].email.equals("")) {
+          continue;
+        }
+
+        String userCsv =
+            String.format("%s,%s,%s", users[i].name, users[i].email, users[i].password);
+        out.append(userCsv + "\n");
+      }
+
+      // 데이터 출력 작업이 끝난 후 자원을 해제시킨다.
+      out.close();
+    } catch (IOException ex) {
+      System.out.printf("%s 파일로 저장하는 중에 오류가 발생했습니다!\n", this.filename);
+    }
   }
 
   public void service() {

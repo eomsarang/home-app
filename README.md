@@ -116,3 +116,15 @@
     - GRASP
         - Low Coupling
         - Polymorphism
+
+## v8.0: 파일 I/O 다루기
+
+- 데이터를 파일에 저장하고 읽는다.
+    - MemberHandler, BoardHandler 클래스 변경
+- 이론:
+    - GoF(4인조)의 Design Patterns
+        - Factory Method 패턴
+    - API 사용
+        - FileReader/FileWriter 사용
+        - StringBuilder/CharBuffer 사용
+    - CSV(Comma-Seperated Value) 포맷
