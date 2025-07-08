@@ -155,3 +155,11 @@
 - 이론: 
     - GoF의 Design Patterns
         - Factory Method 패턴
+
+## v9.0: Persistence 객체 도입
+
+- 데이터를 보관하고 관리하는 일을 하는 객체를 Persistence 객체라 부른다.
+    - MemberDao, BoardDao 클래스 생성
+    - User, Post 클래스를 핸들러의 멤버가 아닌 패키지 멤버로 전환
+- 이론:
+    - SOLID의 SRP(Single Responsibility Priciple)
