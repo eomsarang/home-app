@@ -136,3 +136,13 @@
     - GoF의 Design Patterns
         - Decorator 패턴
 
+## v8.2: GRASP의 Information Expert 적용하기
+
+- 객체의 값을 CSV 포맷 스트링으로 변환하는 기능을 해당 객체로 옮기기
+    - Post, User 클래스 변경
+    - 생성자 추가
+    - 기본 생성자 명시적으로 정의
+- 이론:
+    - GRASP(객체지향 기본 설계 패턴)
+        - Information Expert
+            - 데이터를 다루는 메서드는 그 데이터를 갖고 있는 클래스에 두는 것이 유지보수에 좋다.

@@ -30,20 +30,19 @@ public class BoardHandler implements Handler {
       BufferedReader in2 = new BufferedReader(in);
 
       while (true) {
-        String line = in2.readLine();
-        if (line == null) {
+        String csv = in2.readLine();
+        if (csv == null) {
           break;
         }
 
-        String[] arr = line.split(",");
+        // Refactoring 전:
+        // Post post = new Post(line);
+        // posts[len++] = post;
 
-        Post post = new Post();
-        post.no = Integer.parseInt(arr[0]);
-        post.title = arr[1];
-        post.content = arr[2];
-        post.writer = arr[3];
-
-        posts[len++] = post;
+        // Refactoring 후: replace temp with query
+        // 임시 변수가 있는 자리에 직접 값을 리턴하는 코드를 두는 기법
+        // => 가능한 관련 코드를 가까이 두면 코드를 읽기 쉬워진다.
+        posts[len++] = new Post(csv);
       }
 
       // 파일 읽기가 끝난 후 자원을 해제시킨다. 그래야 다른 프로그램이 파일 자원을 사용할 수 있다.
@@ -69,9 +68,11 @@ public class BoardHandler implements Handler {
         if (this.posts[i].no == 0) {
           continue;
         }
-        // 이전 코드보다 더 간결해짐
-        out2.printf(
-            "%d,%s,%s,%s\n", posts[i].no, posts[i].title, posts[i].content, posts[i].writer);
+        // 이전에는 CSV 포맷을 여기에서 결정했다.
+        // 문제는 Post 클래스에 새 필드가 추가된다면 여기 코드도 바꿔야 한다.
+        // 그런데 다음과 같이 CSV 포맷을 Post 클래스에서 결정한다면
+        // Post 클래스에 필드가 추가되더라도 여기 코드는 변경할 필요가 없다.
+        out2.println(this.posts[i].toCsvString());
       }
 
       // 데이터 출력 작업이 끝난 후 자원을 해제시킨다.
@@ -224,5 +225,26 @@ public class BoardHandler implements Handler {
     String title;
     String content;
     String writer;
+
+    // 기본 생성자 정의
+    // - 다른 생성자가 있으면, 컴파일러는 기본 생성자를 만들어주지 않는다.
+    // - 기본 생성자가 필요하면 개발자가 명시적으로 정의해야 한다.
+    public Post() {}
+
+    // CSV 문자열로 객체의 필드의 값을 초기화시키는 생성자
+    public Post(String csv) {
+      String[] values = csv.split(",");
+      this.no = Integer.parseInt(values[0]);
+      this.title = values[1];
+      this.content = values[2];
+      this.writer = values[3];
+    }
+
+    // 객체에 들어 있는 값을 CSV 포맷 문자열로 만드는 코드를
+    // 그 값을 가지고 있는 클래스에 두는 것이 유지보수에 좋다.
+    // => GRASP의 Information Expert
+    public String toCsvString() {
+      return String.format("%d,%s,%s,%s", this.no, this.title, this.content, this.writer);
+    }
   }
 }

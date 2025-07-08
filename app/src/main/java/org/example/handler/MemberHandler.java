@@ -29,19 +29,19 @@ public class MemberHandler implements Handler {
       BufferedReader in2 = new BufferedReader(in);
 
       while (true) {
-        String line = in2.readLine(); // "aaa,aaa@test.com,1111"
-        if (line == null) {
+        String csv = in2.readLine(); // "aaa,aaa@test.com,1111"
+        if (csv == null) {
           break;
         }
 
-        String[] arr = line.split(","); // ["aaa", "aaa@test.com", "1111"]
+        // Refactoring 전:
+        // User user = new User(line);
+        // users[len++] = user;
 
-        User user = new User();
-        user.name = arr[0];
-        user.email = arr[1];
-        user.password = arr[2];
-
-        users[len++] = user;
+        // Refactoring 후: replace temp with query
+        // 임시 변수가 있는 자리에 직접 값을 리턴하는 코드를 두는 기법
+        // => 가능한 관련 코드를 가까이 두면 코드를 읽기 쉬워진다.
+        users[len++] = new User(csv);
       }
 
       // 파일 읽기가 끝난 후 자원을 해제시킨다. 그래야 다른 프로그램이 파일 자원을 사용할 수 있다.
@@ -69,8 +69,11 @@ public class MemberHandler implements Handler {
           continue;
         }
 
-        // 이전 코드 보다 더 간결해짐
-        out2.printf("%s,%s,%s\n", users[i].name, users[i].email, users[i].password);
+        // 이전에는 CSV 포맷을 여기에서 결정했다.
+        // 문제는 User 클래스에 새 필드가 추가된다면 여기 코드도 바꿔야 한다.
+        // 그런데 다음과 같이 CSV 포맷을 User 클래스에서 결정한다면
+        // User 클래스에 필드가 추가되더라도 여기 코드는 변경할 필요가 없다.
+        out2.println(this.users[i].toCsvString());
       }
 
       // 데이터 출력 작업이 끝난 후 자원을 해제시킨다.
@@ -208,12 +211,29 @@ public class MemberHandler implements Handler {
     System.out.println("해당 회원이 존재하지 않습니다.");
   }
 
-  // 클래스?
-  // - 관련된 기능(메소드 및 변수)을 그룹으로 묶는 역할
-  // - 새 데이터 타입을 정의하는 역할
   static class User {
     String name;
     String email;
     String password;
+
+    // 기본 생성자 정의
+    // - 다른 생성자가 있으면, 컴파일러는 기본 생성자를 만들어주지 않는다.
+    // - 기본 생성자가 필요하면 개발자가 명시적으로 정의해야 한다.
+    public User() {}
+
+    // CSV 문자열로 객체의 필드 값을 초기화시키는 생성자
+    public User(String csv) {
+      String[] values = csv.split(","); // "aaa,aaa@test.com,1111"
+      this.name = values[0];
+      this.email = values[1];
+      this.password = values[2];
+    }
+
+    // 객체에 들어 있는 값을 CSV 포맷 문자열로 만드는 코드를
+    // 그 값을 갖고 있는 클래스에 두는 것이 유지보수에 좋다.
+    // => GRASP의 Information Expert
+    public String toCsvString() {
+      return String.format("%s,%s,%s", this.name, this.email, this.password);
+    }
   }
 }
