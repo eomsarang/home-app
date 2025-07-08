@@ -128,3 +128,11 @@
         - FileReader/FileWriter 사용
         - StringBuilder/CharBuffer 사용
     - CSV(Comma-Seperated Value) 포맷
+
+## v8.1: I/O 데코레이터 사용
+
+- 데이터를 읽고 쓸 때 데코레이터의 도움 받기
+- 이론:
+    - GoF의 Design Patterns
+        - Decorator 패턴
+
