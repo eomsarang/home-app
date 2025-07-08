@@ -23,29 +23,20 @@ public class MemberHandler implements Handler {
 
   private void init() {
     try {
-      FileReader in = new FileReader(this.filename);
-
-      // 한 줄씩 읽어서 리턴할 수 있는 기능을 가진 데코레이터를 붙인다.
-      BufferedReader in2 = new BufferedReader(in);
+      BufferedReader in = new BufferedReader(new FileReader(this.filename));
 
       while (true) {
-        String csv = in2.readLine(); // "aaa,aaa@test.com,1111"
+        String csv = in.readLine(); // "aaa,aaa@test.com,1111"
         if (csv == null) {
           break;
         }
 
-        // Refactoring 전:
-        // User user = new User(line);
-        // users[len++] = user;
-
-        // Refactoring 후: replace temp with query
-        // 임시 변수가 있는 자리에 직접 값을 리턴하는 코드를 두는 기법
-        // => 가능한 관련 코드를 가까이 두면 코드를 읽기 쉬워진다.
-        users[len++] = new User(csv);
+        // CSV 문자열 ---> 객체 생성
+        // - 팩토리 메서드를 호출하여 객체 생성
+        users[len++] = User.fromCsv(csv);
       }
 
       // 파일 읽기가 끝난 후 자원을 해제시킨다. 그래야 다른 프로그램이 파일 자원을 사용할 수 있다.
-      in2.close();
       in.close();
 
     } catch (FileNotFoundException ex) {
@@ -59,25 +50,15 @@ public class MemberHandler implements Handler {
 
   public void save() {
     try {
-      FileWriter out = new FileWriter(this.filename);
-      // 데코레이터 준비
-      PrintWriter out2 = new PrintWriter(out);
+      PrintWriter out = new PrintWriter(new FileWriter(this.filename));
 
-      // 배열에 들어 있는 데이터를 파일로 출력한다.
       for (int i = 0; i < this.len; i++) {
         if (this.users[i].email.equals("")) {
           continue;
         }
-
-        // 이전에는 CSV 포맷을 여기에서 결정했다.
-        // 문제는 User 클래스에 새 필드가 추가된다면 여기 코드도 바꿔야 한다.
-        // 그런데 다음과 같이 CSV 포맷을 User 클래스에서 결정한다면
-        // User 클래스에 필드가 추가되더라도 여기 코드는 변경할 필요가 없다.
-        out2.println(this.users[i].toCsvString());
+        out.println(this.users[i].toCsvString());
       }
 
-      // 데이터 출력 작업이 끝난 후 자원을 해제시킨다.
-      out2.close();
       out.close();
     } catch (IOException ex) {
       System.out.printf("%s 파일로 저장하는 중에 오류가 발생했습니다!\n", this.filename);
@@ -216,22 +197,21 @@ public class MemberHandler implements Handler {
     String email;
     String password;
 
-    // 기본 생성자 정의
-    // - 다른 생성자가 있으면, 컴파일러는 기본 생성자를 만들어주지 않는다.
-    // - 기본 생성자가 필요하면 개발자가 명시적으로 정의해야 한다.
     public User() {}
 
-    // CSV 문자열로 객체의 필드 값을 초기화시키는 생성자
-    public User(String csv) {
-      String[] values = csv.split(","); // "aaa,aaa@test.com,1111"
-      this.name = values[0];
-      this.email = values[1];
-      this.password = values[2];
+    // 팩토리 메서드
+    // - CSV 포맷 문자열을 가지고 User 객체를 생성하는 메서드
+    public static User fromCsv(String csv) {
+      String[] values = csv.split(",");
+
+      User user = new User();
+      user.name = values[0];
+      user.email = values[1];
+      user.password = values[2];
+
+      return user;
     }
 
-    // 객체에 들어 있는 값을 CSV 포맷 문자열로 만드는 코드를
-    // 그 값을 갖고 있는 클래스에 두는 것이 유지보수에 좋다.
-    // => GRASP의 Information Expert
     public String toCsvString() {
       return String.format("%s,%s,%s", this.name, this.email, this.password);
     }

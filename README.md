@@ -146,3 +146,12 @@
     - GRASP(객체지향 기본 설계 패턴)
         - Information Expert
             - 데이터를 다루는 메서드는 그 데이터를 갖고 있는 클래스에 두는 것이 유지보수에 좋다.
+
+## v8.3: GoF의 Design Patterns - Factory Method 패턴 적용하기
+
+- 객체 생성을 대행하는 메서드 만들기
+    - 객체 생성 과정이 복잡할 경우 객체 생성 코드를 메서드로 감추는 것이 유지보수에 좋다.
+    - Post, User 클래스 변경
+- 이론: 
+    - GoF의 Design Patterns
+        - Factory Method 패턴
