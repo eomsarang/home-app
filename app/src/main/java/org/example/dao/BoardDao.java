@@ -6,12 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
+import java.util.ArrayList;
 import org.example.vo.Post;
 
 public class BoardDao {
-  private Post[] posts = new Post[10000]; // 레퍼런스 배열
-  private int len = 0;
+  ArrayList<Post> list = new ArrayList<>();
   private String filename;
   private int lastNo = 0;
 
@@ -31,16 +30,11 @@ public class BoardDao {
           break;
         }
 
-        // CSV 문자열 ----> 객체 생성
-        // - 팩토리 메서드를 호출하여 객체 생성
-        posts[len++] = Post.fromCsv(csv);
+        list.add(Post.fromCsv(csv));
       }
 
-      // 파일 읽기가 끝난 후 자원을 해제시킨다. 그래야 다른 프로그램이 파일 자원을 사용할 수 있다.
       in.close();
-      // 파일을 닫다가 실패 했을 때 할 일을 기술한다.
     } catch (FileNotFoundException ex) {
-      // 파일을 찾지 못했을 때 해야할 일을 기술한다.
       System.out.printf("%s 파일이 없습니다.\n", this.filename);
     } catch (IOException ex) {
       System.out.printf("%s 파일을 닫을 수 없습니다.\n", this.filename);
@@ -52,11 +46,11 @@ public class BoardDao {
       PrintWriter out = new PrintWriter(new FileWriter(this.filename));
 
       out.println(lastNo);
-      for (int i = 0; i < this.len; i++) {
-        if (this.posts[i].no == 0) {
+      for (Post post : list) {
+        if (post.no == 0) {
           continue;
         }
-        out.println(this.posts[i].toCsvString());
+        out.println(post.toCsvString());
       }
 
       out.close();
@@ -67,24 +61,27 @@ public class BoardDao {
 
   public void insert(Post post) {
     post.no = ++lastNo;
-    posts[len++] = post;
+    list.add(post);
   }
 
-  public Post[] findAll() {
-    Post[] arr = Arrays.copyOf(posts, len);
-
-    // Post[] arr = new Post[len];
-    // for (int i = 0; i < len; i++) {
-    //   arr[i] = posts[i];
-    // }
-
-    return arr;
+  public ArrayList<Post> findAll() {
+    return list;
   }
 
   public Post findByNo(int no) {
-    for (int i = 0; i < len; i++) {
-      if (posts[i].no == no) {
-        return posts[i];
+    for (Post post : list) {
+      if (post.no == no) {
+        return post;
+      }
+    }
+    return null;
+  }
+
+  public Post delete(int no) {
+    for (Post post : list) {
+      if (post.no == no) {
+        list.remove(post);
+        return post;
       }
     }
     return null;

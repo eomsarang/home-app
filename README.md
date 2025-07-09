@@ -187,3 +187,10 @@
 - 게시글 입력할 때 번호는 입력 받지 않고 자동으로 할당
     - BoardHandler 클래스 변경
     - BoardDao 클래스 변경
+
+## v10.0: Collection API 사용하기 
+
+- 배열 대신 ArrayList를 사용하여 객체 목록을 다루기
+    - BoardDao, MemberDao 클래스 변경
+        - 삭제 기능 추가: delete()
+    - BoardHandler, MemberHandler 클래스 변경

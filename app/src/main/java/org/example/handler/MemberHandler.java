@@ -1,5 +1,6 @@
 package org.example.handler;
 
+import java.util.ArrayList;
 import org.example.dao.MemberDao;
 import org.example.util.Prompt;
 import org.example.vo.User;
@@ -88,12 +89,9 @@ public class MemberHandler implements Handler {
 
   private void handleList() {
     System.out.println("[목록]");
-    User[] users = memberDao.findAll();
+    ArrayList<User> users = memberDao.findAll();
 
     for (User user : users) {
-      if (user.email.equals("")) {
-        continue;
-      }
       System.out.printf("이름: %s, 이메일: %s, 암호: %s\n", user.name, user.email, user.password);
     }
   }
@@ -139,6 +137,7 @@ public class MemberHandler implements Handler {
   private void handleDelete() {
     System.out.println("[삭제]");
     String email = Prompt.inputString("이메일?");
+
     User user = memberDao.findByEmail(email);
     if (user == null) {
       System.out.println("해당 회원이 존재하지 않습니다.");
@@ -147,7 +146,7 @@ public class MemberHandler implements Handler {
 
     String response = Prompt.inputString("정말 삭제하시겠습니까? (Y/n)");
     if (response.equalsIgnoreCase("Y") || response.equals("")) {
-      user.email = "";
+      memberDao.delete(email);
       System.out.println("삭제했습니다.");
     } else {
       System.out.println("삭제 취소했습니다.");

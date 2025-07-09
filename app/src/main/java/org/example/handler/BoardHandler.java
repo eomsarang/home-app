@@ -1,5 +1,6 @@
 package org.example.handler;
 
+import java.util.ArrayList;
 import org.example.dao.BoardDao;
 import org.example.util.Prompt;
 import org.example.vo.Post;
@@ -80,14 +81,11 @@ public class BoardHandler implements Handler {
   }
 
   private void handleList() {
-    Post[] posts = boardDao.findAll();
+    ArrayList<Post> posts = boardDao.findAll();
 
     System.out.println("[목록]");
 
     for (Post post : posts) {
-      if (post.no == 0) {
-        continue;
-      }
       System.out.printf("%d, %s, %s\n", post.no, post.title, post.writer);
     }
   }
@@ -140,7 +138,7 @@ public class BoardHandler implements Handler {
 
     String response = Prompt.inputString("정말 삭제하시겠습니까? (Y/n)");
     if (response.equalsIgnoreCase("Y") || response.equals("")) {
-      post.no = 0;
+      boardDao.delete(no);
       System.out.println("삭제했습니다.");
     } else {
       System.out.println("삭제 취소했습니다.");
