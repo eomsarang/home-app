@@ -13,6 +13,7 @@ public class BoardDao {
   private Post[] posts = new Post[10000]; // 레퍼런스 배열
   private int len = 0;
   private String filename;
+  private int lastNo = 0;
 
   public BoardDao(String filename) {
     this.filename = filename;
@@ -22,6 +23,7 @@ public class BoardDao {
   private void init() {
     try {
       BufferedReader in = new BufferedReader(new FileReader(this.filename));
+      lastNo = Integer.parseInt(in.readLine());
 
       while (true) {
         String csv = in.readLine();
@@ -49,6 +51,7 @@ public class BoardDao {
     try {
       PrintWriter out = new PrintWriter(new FileWriter(this.filename));
 
+      out.println(lastNo);
       for (int i = 0; i < this.len; i++) {
         if (this.posts[i].no == 0) {
           continue;
@@ -62,12 +65,8 @@ public class BoardDao {
     }
   }
 
-  public void insert(Post post) throws Exception {
-    for (int i = 0; i < len; i++) {
-      if (posts[i].no == post.no) {
-        throw new Exception("번호 중복");
-      }
-    }
+  public void insert(Post post) {
+    post.no = ++lastNo;
     posts[len++] = post;
   }
 

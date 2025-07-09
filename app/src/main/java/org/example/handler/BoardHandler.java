@@ -71,22 +71,12 @@ public class BoardHandler implements Handler {
   private void handleCreate() {
     System.out.println("[입력]");
 
-    Post post = new Post(); // 사용자 정보를 담을 인스턴스 생성하고 인스턴스 주소를 배열에 저장
-    post.no = Prompt.inputInt("번호?");
+    Post post = new Post();
     post.title = Prompt.inputString("제목?");
     post.content = Prompt.inputString("내용?");
     post.writer = Prompt.inputString("작성자?");
-
-    while (true) {
-      try {
-        boardDao.insert(post);
-        System.out.println("입력되었습니다.");
-        break;
-      } catch (Exception ex) {
-        System.out.println("이미 존재하는 게시글 번호입니다.");
-        post.no = Prompt.inputInt("번호?");
-      }
-    }
+    boardDao.insert(post);
+    System.out.println("입력되었습니다.");
   }
 
   private void handleList() {
