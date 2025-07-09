@@ -74,8 +74,15 @@ public class MemberHandler implements Handler {
     user.email = Prompt.inputString("이메일?");
     user.password = Prompt.inputString("암호?");
 
+    while (true) {
+      User user2 = memberDao.findByEmail(user.email);
+      if (user2 == null) {
+        break;
+      }
+      System.out.println("이미 존재하는 이메일입니다.");
+      user.email = Prompt.inputString("이메일?");
+    }
     memberDao.insert(user);
-
     System.out.println("입력되었습니다.");
   }
 

@@ -163,3 +163,11 @@
     - User, Post 클래스를 핸들러의 멤버가 아닌 패키지 멤버로 전환
 - 이론:
     - SOLID의 SRP(Single Responsibility Priciple)
+
+## v9.1: 데이터의 key 중복 검사하기
+
+- 사용자의 이메일 중복 검사 기능을 추가
+    - MemberHandler 클래스 변경
+- 게시글 번호 중복 검사 기능 추가
+    - BoardHandler 클래스 변경
+
