@@ -78,15 +78,15 @@ public class BoardHandler implements Handler {
     post.writer = Prompt.inputString("작성자?");
 
     while (true) {
-      Post post2 = boardDao.findByNo(post.no);
-      if (post2 == null) {
+      try {
+        boardDao.insert(post);
+        System.out.println("입력되었습니다.");
         break;
+      } catch (Exception ex) {
+        System.out.println("이미 존재하는 게시글 번호입니다.");
+        post.no = Prompt.inputInt("번호?");
       }
-      System.out.println("이미 존재하는 게시글 번호 입니다.");
-      post.no = Prompt.inputInt("번호?");
     }
-    boardDao.insert(post);
-    System.out.println("입력되었습니다.");
   }
 
   private void handleList() {

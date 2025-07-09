@@ -171,3 +171,14 @@
 - 게시글 번호 중복 검사 기능 추가
     - BoardHandler 클래스 변경
 
+## v9.2: 예외 처리 문법을 이용하여 데이터 중복 검증하기
+
+- 데이터를 입력할 때 key 값이 중복된 경우 예외 발생시키기
+    - MemberDao, BoardDao 클래스 변경
+- 입력 오류가 발생했을 때 예외 처리하기
+    - MemberHandler, BoardHandler 클래스 변경
+- 이론:
+    - throw 사용법
+    - throws 사용법
+    - try ~ catch ~ 사용법
+

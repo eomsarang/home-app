@@ -62,7 +62,12 @@ public class BoardDao {
     }
   }
 
-  public void insert(Post post) {
+  public void insert(Post post) throws Exception {
+    for (int i = 0; i < len; i++) {
+      if (posts[i].no == post.no) {
+        throw new Exception("번호 중복");
+      }
+    }
     posts[len++] = post;
   }
 

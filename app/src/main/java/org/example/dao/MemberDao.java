@@ -63,7 +63,13 @@ public class MemberDao {
     }
   }
 
-  public void insert(User user) {
+  public void insert(User user) throws Exception {
+    for (int i = 0; i < len; i++) {
+      if (users[i].email.equals(user.email)) {
+        throw new Exception("이메일 중복!");
+        // 메서드 실행을 종료하고 이 메서드를 호출한 쪽에 예외 객체를 던진다.
+      }
+    }
     this.users[this.len++] = user;
   }
 
