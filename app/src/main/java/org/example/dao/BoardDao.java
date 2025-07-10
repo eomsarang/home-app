@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import org.example.util.SimpleArrayList;
 import org.example.vo.Post;
 
 public class BoardDao {
-  ArrayList<Post> list = new ArrayList<>();
+  SimpleArrayList<Post> list = new SimpleArrayList<>();
   private String filename;
   private int lastNo = 0;
 
@@ -46,7 +46,8 @@ public class BoardDao {
       PrintWriter out = new PrintWriter(new FileWriter(this.filename));
 
       out.println(lastNo);
-      for (Post post : list) {
+      for (int i = 0; i < list.size(); i++) {
+        Post post = list.get(i);
         if (post.no == 0) {
           continue;
         }
@@ -64,12 +65,13 @@ public class BoardDao {
     list.add(post);
   }
 
-  public ArrayList<Post> findAll() {
+  public SimpleArrayList<Post> findAll() {
     return list;
   }
 
   public Post findByNo(int no) {
-    for (Post post : list) {
+    for (int i = 0; i < list.size(); i++) {
+      Post post = list.get(i);
       if (post.no == no) {
         return post;
       }
@@ -78,7 +80,8 @@ public class BoardDao {
   }
 
   public Post delete(int no) {
-    for (Post post : list) {
+    for (int i = 0; i < list.size(); i++) {
+      Post post = list.get(i);
       if (post.no == no) {
         list.remove(post);
         return post;

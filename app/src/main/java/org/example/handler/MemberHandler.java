@@ -1,8 +1,8 @@
 package org.example.handler;
 
-import java.util.ArrayList;
 import org.example.dao.MemberDao;
 import org.example.util.Prompt;
+import org.example.util.SimpleArrayList;
 import org.example.vo.User;
 
 public class MemberHandler implements Handler {
@@ -89,9 +89,10 @@ public class MemberHandler implements Handler {
 
   private void handleList() {
     System.out.println("[목록]");
-    ArrayList<User> users = memberDao.findAll();
+    SimpleArrayList<User> users = memberDao.findAll();
 
-    for (User user : users) {
+    for (int i = 0; i < users.size(); i++) {
+      User user = users.get(i);
       System.out.printf("이름: %s, 이메일: %s, 암호: %s\n", user.name, user.email, user.password);
     }
   }

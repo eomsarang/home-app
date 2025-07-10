@@ -194,3 +194,12 @@
     - BoardDao, MemberDao 클래스 변경
         - 삭제 기능 추가: delete()
     - BoardHandler, MemberHandler 클래스 변경
+
+## v10.1: ArrayList를 직접 구현하기
+
+- ArrayList를 직접 구현한다.
+    - SimpleArrayList 클래스 정의
+    - MemberDao, BoardDao 적용
+    - MemberHandler, BoardHandler 변경
+- 이론:
+    - 상속, 다형성(다형적 변수), 제네릭 사용법

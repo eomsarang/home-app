@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
+import org.example.util.SimpleArrayList;
 import org.example.vo.User;
 
 public class MemberDao {
-  ArrayList<User> list = new ArrayList<>();
+  SimpleArrayList<User> list = new SimpleArrayList<>();
   private String filename;
 
   public MemberDao(String filename) {
@@ -43,7 +43,8 @@ public class MemberDao {
     try {
       PrintWriter out = new PrintWriter(new FileWriter(this.filename));
 
-      for (User user : list) {
+      for (int i = 0; i < list.size(); i++) {
+        User user = list.get(i);
         if (user.email.equals("")) {
           continue;
         }
@@ -57,7 +58,8 @@ public class MemberDao {
   }
 
   public void insert(User user) throws Exception {
-    for (User u : list) {
+    for (int i = 0; i < list.size(); i++) {
+      User u = list.get(i);
       if (u.email.equals(user.email)) {
         throw new Exception("이메일 중복!");
       }
@@ -65,12 +67,13 @@ public class MemberDao {
     list.add(user);
   }
 
-  public ArrayList<User> findAll() {
+  public SimpleArrayList<User> findAll() {
     return this.list;
   }
 
   public User findByEmail(String email) {
-    for (User user : list) {
+    for (int i = 0; i < list.size(); i++) {
+      User user = list.get(i);
       if (user.email.equals(email)) {
         return user;
       }
@@ -79,7 +82,8 @@ public class MemberDao {
   }
 
   public User delete(String email) {
-    for (User user : list) {
+    for (int i = 0; i < list.size(); i++) {
+      User user = list.get(i);
       if (user.email.equals(email)) {
         list.remove(user);
         return user;
