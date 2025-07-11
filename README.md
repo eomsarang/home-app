@@ -203,3 +203,13 @@
     - MemberHandler, BoardHandler 변경
 - 이론:
     - 상속, 다형성(다형적 변수), 제네릭 사용법
+
+## v10.2: LinkedList를 직접 구현하기
+
+- LinkedList를 직접 구현한다.
+    - SimpleLinkedList 클래스 정의
+    - MemberDao, BoardDao 적용
+    - MemberHandler, BoardHandler 변경
+- 이론:
+    - 자료구조
+        - LinkedList의 동작 원리 이해 및 구현

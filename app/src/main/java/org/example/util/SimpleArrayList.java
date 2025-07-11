@@ -2,11 +2,11 @@ package org.example.util;
 
 import java.util.Arrays;
 
-public class SimpleArrayList<what> {
+public class SimpleArrayList<T> {
   private Object[] arr = new Object[5];
   private int len = 0;
 
-  public void add(what obj) {
+  public void add(T obj) {
     if (len == arr.length) {
       // Object[] arr2 = new Object[arr.length + (arr.length / 2)];
       // for (int i = 0; i < arr.length; i++) {
@@ -23,14 +23,14 @@ public class SimpleArrayList<what> {
     return len;
   }
 
-  public what get(int index) throws RuntimeException {
+  public T get(int index) throws RuntimeException {
     if (index >= len || index < 0) {
       throw new RuntimeException("인덱스의 범위가 유효하지 않습니다.");
     }
-    return (what) arr[index];
+    return (T) arr[index];
   }
 
-  public boolean remove(what obj) {
+  public boolean remove(T obj) {
     for (int i = 0; i < len; i++) {
       if (arr[i] == obj) {
         for (int j = i; j < len - 1; j++) {

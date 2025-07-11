@@ -6,11 +6,11 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import org.example.util.SimpleArrayList;
+import org.example.util.SimpleLinkedList;
 import org.example.vo.Post;
 
 public class BoardDao {
-  SimpleArrayList<Post> list = new SimpleArrayList<>();
+  SimpleLinkedList<Post> list = new SimpleLinkedList<>();
   private String filename;
   private int lastNo = 0;
 
@@ -65,7 +65,7 @@ public class BoardDao {
     list.add(post);
   }
 
-  public SimpleArrayList<Post> findAll() {
+  public SimpleLinkedList<Post> findAll() {
     return list;
   }
 
