@@ -1,8 +1,8 @@
 package org.example.handler;
 
+import java.util.List;
 import org.example.dao.MemberDao;
 import org.example.util.Prompt;
-import org.example.util.SimpleList;
 import org.example.vo.User;
 
 public class MemberHandler implements Handler {
@@ -89,7 +89,7 @@ public class MemberHandler implements Handler {
 
   private void handleList() {
     System.out.println("[목록]");
-    SimpleList<User> users = memberDao.findAll();
+    List<User> users = memberDao.findAll();
 
     for (int i = 0; i < users.size(); i++) {
       User user = users.get(i);

@@ -241,3 +241,14 @@
         - Dependency Inversion Principle(DIP) 
         - Dependency Injection(DI) 라고도 부른다.
         - Inversion of Control(IoC) 라고도 부른다.
+
+## v10.5: 자바에서 제공하는 Collection API 사용하기
+
+- 직접 만든 클래스 대신 자바에서 제공해주는 ArrayList와 LinkedList 적용하기
+    - MemberDao, BoardDao 클래스 변경
+    - MemberHandler, BoardHandler 클래스 변경
+    - App 클래스 변경
+- 이론:
+    - Collection API란? 
+        - 데이터 목록을 다루는 클래스와 인터페이스를 가리킨다.
+

@@ -1,24 +1,24 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import org.example.dao.BoardDao;
 import org.example.dao.MemberDao;
 import org.example.handler.BoardHandler;
 import org.example.handler.Handler;
 import org.example.handler.MemberHandler;
 import org.example.util.Prompt;
-import org.example.util.SimpleArrayList;
-import org.example.util.SimpleLinkedList;
 
 public class App {
 
-  private MemberDao memberDao = new MemberDao("member.csv", new SimpleArrayList<>());
+  private MemberDao memberDao = new MemberDao("member.csv", new ArrayList<>());
   private Handler memberHandler = new MemberHandler("회원", memberDao);
 
-  private BoardDao boardDao = new BoardDao("board.csv", new SimpleLinkedList<>());
+  private BoardDao boardDao = new BoardDao("board.csv", new LinkedList<>());
   private Handler boardHandler = new BoardHandler("게시판", boardDao);
 
   // 기술소개 게시글을 담을 배열과 len 변수를 준비한다.
-  private BoardDao techBoardDao = new BoardDao("tech-board.csv", new SimpleArrayList<>());
+  private BoardDao techBoardDao = new BoardDao("tech-board.csv", new ArrayList<>());
   private Handler techBoardHandler = new BoardHandler("기술소개", techBoardDao);
 
   public static void main(String[] args) {

@@ -6,14 +6,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import org.example.util.SimpleList;
+import java.util.List;
 import org.example.vo.User;
 
 public class MemberDao {
-  SimpleList<User> list;
+  List<User> list;
   private String filename;
 
-  public MemberDao(String filename, SimpleList<User> list) {
+  public MemberDao(String filename, List<User> list) {
     this.filename = filename;
     this.list = list;
     this.init();
@@ -68,7 +68,7 @@ public class MemberDao {
     list.add(user);
   }
 
-  public SimpleList<User> findAll() {
+  public List<User> findAll() {
     return this.list;
   }
 

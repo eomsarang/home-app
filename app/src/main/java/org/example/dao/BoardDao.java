@@ -6,15 +6,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import org.example.util.SimpleList;
+import java.util.List;
 import org.example.vo.Post;
 
 public class BoardDao {
-  SimpleList<Post> list;
+  List<Post> list;
   private String filename;
   private int lastNo = 0;
 
-  public BoardDao(String filename, SimpleList<Post> list) {
+  public BoardDao(String filename, List<Post> list) {
     this.filename = filename;
     this.list = list;
     this.init();
@@ -66,7 +66,7 @@ public class BoardDao {
     list.add(post);
   }
 
-  public SimpleList<Post> findAll() {
+  public List<Post> findAll() {
     return list;
   }
 

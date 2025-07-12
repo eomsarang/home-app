@@ -1,8 +1,8 @@
 package org.example.handler;
 
+import java.util.List;
 import org.example.dao.BoardDao;
 import org.example.util.Prompt;
-import org.example.util.SimpleList;
 import org.example.vo.Post;
 
 public class BoardHandler implements Handler {
@@ -81,7 +81,7 @@ public class BoardHandler implements Handler {
   }
 
   private void handleList() {
-    SimpleList<Post> posts = boardDao.findAll();
+    List<Post> posts = boardDao.findAll();
 
     System.out.println("[목록]");
 
