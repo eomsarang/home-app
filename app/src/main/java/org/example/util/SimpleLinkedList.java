@@ -1,6 +1,6 @@
 package org.example.util;
 
-public class SimpleLinkedList<E> {
+public class SimpleLinkedList<E> implements SimpleList<E> {
   private Node<E> head;
   private Node<E> tail;
   private int len;

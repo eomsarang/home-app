@@ -2,7 +2,7 @@ package org.example.util;
 
 import java.util.Arrays;
 
-public class SimpleArrayList<T> {
+public class SimpleArrayList<T> implements SimpleList<T> {
   private Object[] arr = new Object[5];
   private int len = 0;
 

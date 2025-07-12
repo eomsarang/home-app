@@ -6,11 +6,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import org.example.util.SimpleLinkedList;
+import org.example.util.SimpleArrayList;
+import org.example.util.SimpleList;
 import org.example.vo.User;
 
 public class MemberDao {
-  SimpleLinkedList<User> list = new SimpleLinkedList<>();
+  SimpleList<User> list = new SimpleArrayList<>();
   private String filename;
 
   public MemberDao(String filename) {
@@ -67,7 +68,7 @@ public class MemberDao {
     list.add(user);
   }
 
-  public SimpleLinkedList<User> findAll() {
+  public SimpleList<User> findAll() {
     return this.list;
   }
 

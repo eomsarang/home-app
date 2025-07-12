@@ -2,7 +2,7 @@ package org.example.handler;
 
 import org.example.dao.MemberDao;
 import org.example.util.Prompt;
-import org.example.util.SimpleLinkedList;
+import org.example.util.SimpleList;
 import org.example.vo.User;
 
 public class MemberHandler implements Handler {
@@ -89,7 +89,7 @@ public class MemberHandler implements Handler {
 
   private void handleList() {
     System.out.println("[목록]");
-    SimpleLinkedList<User> users = memberDao.findAll();
+    SimpleList<User> users = memberDao.findAll();
 
     for (int i = 0; i < users.size(); i++) {
       User user = users.get(i);

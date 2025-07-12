@@ -2,7 +2,7 @@ package org.example.handler;
 
 import org.example.dao.BoardDao;
 import org.example.util.Prompt;
-import org.example.util.SimpleLinkedList;
+import org.example.util.SimpleList;
 import org.example.vo.Post;
 
 public class BoardHandler implements Handler {
@@ -81,7 +81,7 @@ public class BoardHandler implements Handler {
   }
 
   private void handleList() {
-    SimpleLinkedList<Post> posts = boardDao.findAll();
+    SimpleList<Post> posts = boardDao.findAll();
 
     System.out.println("[목록]");
 

@@ -213,3 +213,17 @@
 - 이론:
     - 자료구조
         - LinkedList의 동작 원리 이해 및 구현
+
+## v10.3: 목록을 다루는 객체 사용법을 인터페이스로 정의
+
+- SimpleArrayList와 SimpleLinkedList의 기능을 인터페이스로 정의
+    - SimpleList 인터페이스 정의
+    - SimpleArrayList, SimpleLinkedList 클래스를 변경
+    - MemberDao, BoardDao 적용
+    - MemberHandler, BoardHandler 변경
+- 이론:
+    - GRASP 패턴
+        - Low Coupling 구현
+            - 인터페이스를 이용하여 의존 객체에 대한 커플링을 약화시킨다.
+            - 클래스에 의존하는 것 보다 인터페이스에 의존하는 것이 유지보수에 좋다.
+            - 즉 클래스가 추가 되거나 변경 되더라도 인터페이스에 의존하는 경우에는 코드를 변경할 필요가 없다.
