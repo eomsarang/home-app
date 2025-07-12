@@ -1,25 +1,25 @@
 package org.example;
 
+import org.example.dao.BoardDao;
+import org.example.dao.MemberDao;
 import org.example.handler.BoardHandler;
 import org.example.handler.Handler;
 import org.example.handler.MemberHandler;
 import org.example.util.Prompt;
+import org.example.util.SimpleArrayList;
+import org.example.util.SimpleLinkedList;
 
 public class App {
 
-  // GRASP
-  // 1) Polymorphism
-  //    - 인터페이스의 레퍼런스는 해당 인터페이스 규칙을 따르는 클래스라면 어떤 객체든지 저장할 수 있다.
-  // 2) Low Coupling
-  //    - App 클래스가 직접적으로 다른 클래스를 사용하기 보다는 인터페이스를 사용함으로써
-  //      특정 클래스에 종속되는 것을 막을 수 있다.
-  private Handler memberHandler = new MemberHandler("회원", "member.csv");
+  private MemberDao memberDao = new MemberDao("member.csv", new SimpleArrayList<>());
+  private Handler memberHandler = new MemberHandler("회원", memberDao);
 
-  // 게시글을 담을 배열과 len 변수를 준비한다.
-  private Handler boardHandler = new BoardHandler("게시판", "board.csv");
+  private BoardDao boardDao = new BoardDao("board.csv", new SimpleLinkedList<>());
+  private Handler boardHandler = new BoardHandler("게시판", boardDao);
 
   // 기술소개 게시글을 담을 배열과 len 변수를 준비한다.
-  private Handler techBoardHandler = new BoardHandler("기술소개", "tech-board.csv");
+  private BoardDao techBoardDao = new BoardDao("tech-board.csv", new SimpleArrayList<>());
+  private Handler techBoardHandler = new BoardHandler("기술소개", techBoardDao);
 
   public static void main(String[] args) {
     new App().service();

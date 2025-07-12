@@ -10,9 +10,9 @@ public class MemberHandler implements Handler {
   private String title;
   private MemberDao memberDao;
 
-  public MemberHandler(String title, String filename) {
+  public MemberHandler(String title, MemberDao memberDao) {
     this.title = title;
-    this.memberDao = new MemberDao(filename);
+    this.memberDao = memberDao;
   }
 
   public void service() {

@@ -6,17 +6,17 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import org.example.util.SimpleArrayList;
 import org.example.util.SimpleList;
 import org.example.vo.Post;
 
 public class BoardDao {
-  SimpleList<Post> list = new SimpleArrayList<>();
+  SimpleList<Post> list;
   private String filename;
   private int lastNo = 0;
 
-  public BoardDao(String filename) {
+  public BoardDao(String filename, SimpleList<Post> list) {
     this.filename = filename;
+    this.list = list;
     this.init();
   }
 

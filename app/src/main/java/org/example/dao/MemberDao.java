@@ -6,16 +6,16 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import org.example.util.SimpleArrayList;
 import org.example.util.SimpleList;
 import org.example.vo.User;
 
 public class MemberDao {
-  SimpleList<User> list = new SimpleArrayList<>();
+  SimpleList<User> list;
   private String filename;
 
-  public MemberDao(String filename) {
+  public MemberDao(String filename, SimpleList<User> list) {
     this.filename = filename;
+    this.list = list;
     this.init();
   }
 

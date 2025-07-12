@@ -11,10 +11,10 @@ public class BoardHandler implements Handler {
   private String boardName;
   private BoardDao boardDao;
 
-  public BoardHandler(String boardName, String filename) {
+  public BoardHandler(String boardName, BoardDao boardDao) {
 
     this.boardName = boardName;
-    this.boardDao = new BoardDao(filename);
+    this.boardDao = boardDao;
   }
 
   public void service() {

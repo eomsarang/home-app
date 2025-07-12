@@ -227,3 +227,17 @@
             - 인터페이스를 이용하여 의존 객체에 대한 커플링을 약화시킨다.
             - 클래스에 의존하는 것 보다 인터페이스에 의존하는 것이 유지보수에 좋다.
             - 즉 클래스가 추가 되거나 변경 되더라도 인터페이스에 의존하는 경우에는 코드를 변경할 필요가 없다.
+
+## v10.4: 의존 객체 주입 방식 도입
+
+- 의존 객체를 직접 생성하지 않고 외부에서 주입 받기
+    - 특정 클래스를 사용하지 않기 때문에 그 클래스와의 결합을 끊을 수 있다.
+    - 즉 결합도를 낮출 수 있다.(= Low Coupling)
+    - MemberDao, BoardDao 변경
+    - MemberHandler, BoardHandler 변경
+    - App 클래스 변경
+- 이론:
+    - SOLID 설계 원칙
+        - Dependency Inversion Principle(DIP) 
+        - Dependency Injection(DI) 라고도 부른다.
+        - Inversion of Control(IoC) 라고도 부른다.
